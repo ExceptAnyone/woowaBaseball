@@ -6,8 +6,8 @@ class User {
     UserNumber = [];
 
     readUserNumber(query, callback) {
-        MissionUtils.Console.readLine(query, (callback) => {
-            callback(Validator.UserNumber(callback));
+        MissionUtils.Console.readLine(query, (answer) => {
+            callback(Validator.userNumber(answer));
     })
 
     // static enterNumber(enterNumber) {

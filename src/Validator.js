@@ -1,20 +1,27 @@
 class Validator {
 
-    static userNumber(callback) {
+    static userNumber(enterNumber) {
+        //   return (enterNumber) => {                      //여기 리턴값이 없어도 되네. 이유는?
+        if(enterNumber.length !==3){ //이거 배열로 받아야하는데 어케하지 흠.. Array()를 써야하나
+            throw Error('잘못된 값입니다. 서로 다른 세자리 수를 입력해주세요');
+        }
+
+        if(isNaN(enterNumber)){
+            throw Error('숫자로 입력해주세요');
+        }
         
-        return (userNumber) => {
-        if(userNumber.length !==3){
-            throw Error('잘못된 값입니다. 어플리케이션 종료');
-        }
+        // if(typeof answer !== "number"){      이건 왜 안될까 ㅠㅠ
+        //     throw Error('숫자로 입력해주세요');
+        // }
 
-        if(typeof userNumber !== Number){
-            throw Error('잘못된 값입니다. 어플리케이션 종료');
-        }
-
-        if(userNumber.length !== new Set(userNumber).size){
+        if(enterNumber.length !== new Set(enterNumber).size){
             throw Error('중복된 숫자가 있습니다');
         }
-        callback(userNumber);
-    }
+        
+        // answer(userNumber);
+        
+          }
 }
-}
+
+
+module.exports = Validator ;

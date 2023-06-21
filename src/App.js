@@ -7,13 +7,15 @@ const Validator = require("./Validator");
 class App {
   constructor(){
     this.user = new User;
+    this.computers = new Computers;
+    this.validator = new Validator;
   }
 
 
   play() {
     this.random();
     this.printGameStart();
-    this.UserNumber()
+    // this.UserNumber();
   }
 
   exit(){
@@ -21,22 +23,30 @@ class App {
   }
 
   random(){
-    Computers.generateNumbers();
+    Computers.generateNumbers(); //this.computers로 하면 왜 안될까
+  }
+
+  printMessage(message){
+    MissionUtils.Console.print(message)
   }
 
   printGameStart(){
-    MissionUtils.Console.print(MESSAGE.START);
-    MissionUtils.Console.print(MESSAGE.ENTER_NUMBER);
+    this.printMessage(MESSAGE.START);
+    this.printEnterNumber();
   }
+  
+  printEnterNumber(){
+    this.user.readUserNumber(MESSAGE.ENTER_NUMBER, (enterNumber) =>{
+      Validator.userNumber(enterNumber)});
+  }}
 
-  UserNumber(){
-   this.user.readUserNumber(MESSAGE.ENTER_NUMBER, (number) => {
-    this.user.UserNumber = //유저가 입력한 값을 빈 배열에 넣기 
 
-   }
-   )
-  }
-}
+  // UserNumber(){
+  //  this.user.readUserNumber(MESSAGE.ENTER_NUMBER, (number) => {
+  //   this.user.UserNumber = //유저가 입력한 값을 빈 배열에 넣기 
+  //  )}
+  // }
+
 
 
 
