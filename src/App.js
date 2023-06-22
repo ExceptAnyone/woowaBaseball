@@ -38,14 +38,20 @@ class App {
   printEnterNumber(){
     this.user.readUserNumber(MESSAGE.ENTER_NUMBER, (enterNumber) =>{
       Validator.userNumber(enterNumber)});
-  }}
+  }
 
+  correctAnswer() {
+    //일단 컴퓨터가 생성한 랜덤숫자를 가져오자
+    
+    
+  }
 
-  // UserNumber(){
-  //  this.user.readUserNumber(MESSAGE.ENTER_NUMBER, (number) => {
-  //   this.user.UserNumber = //유저가 입력한 값을 빈 배열에 넣기 
-  //  )}
-  // }
+}
+  // 유저가 숫자 입력한 것을 컴퓨터가 생성한 숫자와 비교
+  // - 순서와 숫자 둘 다 맞으면 스트라이크 
+  // - 숫자만 맞으면 볼
+  // - 둘다 틀리면 낫싱
+
 
 
 
