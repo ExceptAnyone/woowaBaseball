@@ -3,7 +3,6 @@ const Validator = require("./Validator");
 
 
 class User {
-    UserNumber = [];
 
     readUserNumber(query, callback) {
         MissionUtils.Console.readLine(query, (answer) => {
