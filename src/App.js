@@ -13,58 +13,61 @@ class App {
 
 
   play() {
-    this.generateRandomNumber();
     this.printGameStart();
-    this.printEnterNumber();
-    // this.UserNumber();
+    this.generateRandomNumber();
+    this.userEnterNumberAndCheck();
+    this.checkRetry();
+
   }
 
   exit(){
     MissionUtils.Console.close();
   }
-
-  generateRandomNumber(){
-    Computers.generateNumbers(); //this.computers로 하면 왜 안될까 -> static을 썼기 때문
-  }
-
-  printMessage(message){
-    MissionUtils.Console.print(message)
-  }
-
+  
   printGameStart(){
     this.printMessage(MESSAGE.START);
   }
   
-  printEnterNumber(){
-    this.user.readUserNumber(MESSAGE.ENTER_NUMBER, (enterNumber) =>{
-      Validator.userNumber(enterNumber)});
+  generateRandomNumber(){
+    this.computers.generateNumbersArrayFunction();
   }
 
-  checkAnswer(userInput, computerNumber) {
-      let result = {
-        strike : 0, ball : 0};
-
-      for(let i=0; i<3; i++){
-      if(userInput[i] === computerNumber[i]){
-        strike ++;
+  userEnterNumberAndCheck(){
+    this.user.readUserNumber(MESSAGE.ENTER_NUMBER, (enterNumber) => {
+      const result = this.computers.countResult(enterNumber);
+      this.printResult(result);
+      if (result.strike === 3) {
+        this.printMessage("정답입니다. 게임을 종료합니다.");
+      } else {
+        this.userEnterNumberAndCheck();
       }
-      if(computerNumber.includes(Number(userInput[i]))){
-         ball ++;
-      }
+    })
+    
   }
-  return result ;
+  
+  checkAnswer(answer) {
+    this.computers.countResult(answer);
   }
 
+  checkRetry(strike, ball){
+    if(strike ===3){
+      this.printMessage('정답입니다. 게임을 종료합니다');
+    }
+    else{
+      this.userEnterNumberAndCheck()
+    };
   }
 
+  printResult(result) {
+    this.printMessage(`${result.strike}스트라이크 ${result.ball}볼`);
+  }
+ 
+//다음 재시작 여부 확인
 
-  // 유저가 숫자 입력한 것을 컴퓨터가 생성한 숫자와 비교
-  // - 순서와 숫자 둘 다 맞으면 스트라이크 
-  // - 숫자만 맞으면 볼
-  // - 둘다 틀리면 낫싱
-
-
-
+  printMessage(message){
+    MissionUtils.Console.print(message)
+  }
+  }
 
 
 const app = new App();
