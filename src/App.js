@@ -16,7 +16,7 @@ class App {
     this.printGameStart();
     this.generateRandomNumber();
     this.userEnterNumberAndCheck();
-    this.checkRetry();
+    // this.checkRetry();
 
   }
 
@@ -32,15 +32,11 @@ class App {
     this.computers.generateNumbersArrayFunction();
   }
 
-  userEnterNumberAndCheck(){
-    this.user.readUserNumber(MESSAGE.ENTER_NUMBER, (enterNumber) => {
-      const result = this.computers.countResult(enterNumber);
-      this.printResult(result);
-      if (result.strike === 3) {
-        this.printMessage("정답입니다. 게임을 종료합니다.");
-      } else {
-        this.userEnterNumberAndCheck();
-      }
+  userEnterNumberAndCheck(computerNum){
+    MissionUtils.Console.readLine(MESSAGE.ENTER_NUMBER, (answer) => {
+      // validator 검사한 후 
+      // strike ball 조사하는 메소드
+      this.computers.countStrikeAndBall(answer, computerNum);
     })
     
   }
@@ -49,18 +45,18 @@ class App {
     this.computers.countResult(answer);
   }
 
-  checkRetry(strike, ball){
-    if(strike ===3){
-      this.printMessage('정답입니다. 게임을 종료합니다');
-    }
-    else{
-      this.userEnterNumberAndCheck()
-    };
-  }
+  // checkRetry(strike, ball){
+  //   if(strike ===3){
+  //     this.printMessage('정답입니다. 게임을 종료합니다');
+  //   }
+  //   else{
+  //     this.userEnterNumberAndCheck()
+  //   };
+  // }
 
-  printResult(result) {
-    this.printMessage(`${result.strike}스트라이크 ${result.ball}볼`);
-  }
+  // printResult(result) {
+  //   this.printMessage(`${result.strike}스트라이크 ${result.ball}볼`);
+  // }
  
 //다음 재시작 여부 확인
 
