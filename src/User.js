@@ -4,10 +4,17 @@ const Validator = require("./Validator");
 
 class User {
 
-    readUserNumber(query, callback) {
+    readUserNumber(query, callback) {        
         MissionUtils.Console.readLine(query, (answer) => {
-            callback(Validator.userNumber(answer));
-    })
+         callback(Validator.userNumber(answer));
+            });
+    }
+
+    readFlag(query, callback) {
+        MissionUtils.Console.readLine(query, (flag) => {
+          callback(Validator.flag(flag));
+        });
+      }
 
     // static enterNumber(enterNumber) {
 
@@ -16,6 +23,6 @@ class User {
     // }
 
 }
-}
+
 
 module.exports = User;

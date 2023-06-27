@@ -1,22 +1,26 @@
 const MissionUtils = require("@woowacourse/mission-utils");
 const User = require("./User");
-const {MESSAGE} = require("./constants");
+const {MESSAGE, FLAG} = require("./constants");
 const Computers  = require("./Computers");
 const Validator = require("./Validator");
+
+
 
 class App {
   constructor(){
     this.user = new User();
     this.computers = new Computers();
     this.validator = new Validator();
+    this.setUp(); //constructor에 넣어주는 이유?
   }
+
+  setUp(){
+    this.computers.setUp();
+  };
 
 
   play() {
-    this.printGameStart();
-    this.generateRandomNumber();
-    this.userEnterNumberAndCheck();
-    // this.checkRetry();
+    this.gameStart();
 
   }
 
@@ -24,25 +28,72 @@ class App {
     MissionUtils.Console.close();
   }
   
-  printGameStart(){
-    this.printMessage(MESSAGE.START);
-  }
-  
-  generateRandomNumber(){
-    this.computers.generateNumbersArrayFunction();
-  }
+  // generateRandomNumber(){
+  //   this.computers.generateNumbers();
+  // }
 
-  userEnterNumberAndCheck(computerNum){
-    MissionUtils.Console.readLine(MESSAGE.ENTER_NUMBER, (answer) => {
-      // validator 검사한 후 
-      // strike ball 조사하는 메소드
-      this.computers.countStrikeAndBall(answer, computerNum);
+  async gameStart(){
+    this.printStart();
+
+    await this.user.readUserNumber(MESSAGE.ENTER_NUMBER, async (answer) =>  { 
+      // validator 검사한 후 (나중에 작업)
+      console.log('1 :'  + answer);
+      const correct = await this.checkAnswer(answer);
+      
+      correct ? this.checkReplay() : this.gameStart();
+
     })
     
   }
   
-  checkAnswer(answer) {
-    this.computers.countResult(answer);
+  replay() {
+    this.setUp();
+    this.play();
+  }
+        
+  async checkAnswer(answer){
+    const [ball,strike] = await this.computers.countTotal(answer);
+    console.log(ball, strike);
+    this.printResult(ball, strike);
+
+    if (strike === 3) {
+      this.printExit();
+      return true;
+    }
+
+    return false;
+  }
+
+  printResult(ball,strike){
+    if(strike ===3){
+      if(ball === 0 && strike>0){
+      this.printMessage(MESSAGE.STRIKE[strike]);
+    }
+    else{
+      this.printMessage(`${MESSAGE.BALL[ball]} ${MESSAGE.STRIKE[strike]}`);
+    }
+  }
+  }
+  
+  checkReplay() {
+    this.user.readFlag(FLAG.REPLAY, (flag) => {
+      if (flag === FLAG.REPLAY) this.replay();
+      if (flag === FLAG.EXIT) this.exit();
+    })
+  }
+
+  printStart(){
+    this.printMessage(MESSAGE.START);
+  }
+
+  printExit(){
+    this.printMessage(MESSAGE.EXIT);
+    
+  }
+
+  printMessage(message){
+    MissionUtils.Console.print(message)
+  }
   }
 
   // checkRetry(strike, ball){
@@ -60,10 +111,6 @@ class App {
  
 //다음 재시작 여부 확인
 
-  printMessage(message){
-    MissionUtils.Console.print(message)
-  }
-  }
 
 
 const app = new App();
