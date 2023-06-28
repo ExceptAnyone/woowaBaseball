@@ -32,13 +32,13 @@ class App {
   //   this.computers.generateNumbers();
   // }
 
-  async gameStart(){
+   gameStart(){
     this.printStart();
 
-    await this.user.readUserNumber(MESSAGE.ENTER_NUMBER, async (answer) =>  { 
+    this.user.readUserNumber(MESSAGE.ENTER_NUMBER,  (answer) =>  { 
       // validator 검사한 후 (나중에 작업)
       console.log('1 :'  + answer);
-      const correct = await this.checkAnswer(answer);
+      const correct = this.checkAnswer(answer);
       
       correct ? this.checkReplay() : this.gameStart();
 
@@ -51,8 +51,8 @@ class App {
     this.play();
   }
         
-  async checkAnswer(answer){
-    const [ball,strike] = await this.computers.countTotal(answer);
+   checkAnswer(answer){
+    const [ball,strike] = this.computers.countTotal(answer);
     console.log(ball, strike);
     this.printResult(ball, strike);
 
@@ -65,15 +65,16 @@ class App {
   }
 
   printResult(ball,strike){
-    if(strike ===3){
-      if(ball === 0 && strike>0){
+    
+    if(ball === 0 && strike>0){
       this.printMessage(MESSAGE.STRIKE[strike]);
     }
+
     else{
       this.printMessage(`${MESSAGE.BALL[ball]} ${MESSAGE.STRIKE[strike]}`);
     }
   }
-  }
+  
   
   checkReplay() {
     this.user.readFlag(FLAG.REPLAY, (flag) => {

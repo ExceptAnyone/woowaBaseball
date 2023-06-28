@@ -11,7 +11,7 @@ class Validator {
 
     static flag(flag) {
             if (flag !== FLAG.REPLAY && flag !== FLAG.EXIT) {
-              throw new FlagError(ERROR_CODE.WRONG_FLAG, flag);
+              throw new Error('재시작 오류');
             }
         
             return flag;
