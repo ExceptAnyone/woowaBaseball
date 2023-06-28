@@ -36,8 +36,7 @@ class App {
     this.printStart();
 
     this.user.readUserNumber(MESSAGE.ENTER_NUMBER,  (answer) =>  { 
-      // validator 검사한 후 (나중에 작업)
-      console.log('1 :'  + answer);
+      console.log('answer 인자 잘 받아와 지나 테스트 2 :'  + answer);
       const correct = this.checkAnswer(answer);
       
       correct ? this.checkReplay() : this.gameStart();
@@ -45,36 +44,36 @@ class App {
     })
     
   }
+  checkAnswer(answer){
+   const [ball,strike] = this.computers.countTotal(answer); //대괄호에 넣어줄 수 있다는 것도 몰랐다... 
+   console.log(ball, strike);
+   this.printResult(ball, strike);
+
+   if (strike === 3) {
+     this.printExit();
+     return true; 
+   }
+
+   return false;
+ }
   
-  replay() {
-    this.setUp();
-    this.play();
-  }
-        
-   checkAnswer(answer){
-    const [ball,strike] = this.computers.countTotal(answer);
-    console.log(ball, strike);
-    this.printResult(ball, strike);
-
-    if (strike === 3) {
-      this.printExit();
-      return true;
+ 
+ 
+ printResult(ball,strike){
+   
+   if(ball === 0 && strike>0){
+     this.printMessage(MESSAGE.STRIKE[strike]);
     }
-
-    return false;
-  }
-
-  printResult(ball,strike){
     
-    if(ball === 0 && strike>0){
-      this.printMessage(MESSAGE.STRIKE[strike]);
-    }
-
     else{
       this.printMessage(`${MESSAGE.BALL[ball]} ${MESSAGE.STRIKE[strike]}`);
     }
   }
   
+  replay() {
+    this.setUp();
+    this.play();
+  }
   
   checkReplay() {
     this.user.readFlag(FLAG.REPLAY, (flag) => {

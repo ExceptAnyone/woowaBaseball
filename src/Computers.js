@@ -15,13 +15,13 @@ class Computers {
      countTotal(answer){ 
 
         this.calcInit();
-        console.log('2 :' + answer);
-        let answerToString = answer.toString();
-        let answerArray =  answerToString.split('')
+        console.log('answer 인자 잘 받아와 지나 테스트 2:' + answer);
+        console.log(typeof answer);
+        let answerToString = answer.toString(); //answer의 type을 모르기 때문에 toString 후 배열로 만듬. 근데 그럴 필요가 없었네.
+        let answerArray =  answer.split('')
         answerArray.forEach((number, index) => {
             this.countStrikeAndBall(number, index)
         })
-        console.log('answerArray :' + this.strike);
         
         return [this.ball, this.strike];
 
@@ -49,7 +49,7 @@ class Computers {
             this.strike +=1 ;
             console.log(this.strike);
         
-          return ; 
+          return ; // return으로 함수를 종료시키는 이유?
     }
         if(this.countBall(number)){
             this.ball +=1 ;

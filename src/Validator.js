@@ -11,7 +11,7 @@ class Validator {
 
     static flag(flag) {
             if (flag !== FLAG.REPLAY && flag !== FLAG.EXIT) {
-              throw new Error('재시작 오류');
+              throw new Error('재시작 오류. 재시작을 원하면 1, 게임을 종료하려면 2를 입력해주세요.');
             }
         
             return flag;
