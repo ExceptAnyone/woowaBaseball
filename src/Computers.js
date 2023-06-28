@@ -25,21 +25,9 @@ class Computers {
         
         return [this.ball, this.strike];
 
-    }
-        //     if(this.countStrike(number, index)){
-        //         this.strike +=1 ;
-        //         console.log(this.strike);
-            
-        //       return ; 
-        // }
-        //     if(this.countBall(number)){
-        //         this.ball +=1 ;
-        //         console.log(this.ball);
+     }
 
-        //         return ;
-        
-    
-        // forEach(this.countStrikeAndBall.bind(this)); //bind 해주는 이유가 뭐지;
+     // forEach(this.countStrikeAndBall.bind(this)); //bind 해주는 이유가 뭐지;
 
         
     
@@ -80,6 +68,10 @@ class Computers {
     console.log(randomNumList);
     return randomNumList.join('');
   }
+
+
+
+                //기존 코드
 //   constructor() {
 //     this.generateNumbersArray = [];
 //   }

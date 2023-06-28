@@ -16,12 +16,6 @@ class User {
         });
       }
 
-    // static enterNumber(enterNumber) {
-
-    //     return Array(3)
-    //     .map((enterNumber) => {Number});
-    // }
-
 }
 
 
